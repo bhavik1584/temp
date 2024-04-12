@@ -1,0 +1,35 @@
+<?php
+
+$i = 0;
+$totalRowprice = [76,150,370,128,200];
+$totalBeforeGst = [3.619047619047619,7.142857142857143,17.61904761904762,28,30.50847457627119];
+$subtotalrow = [];
+$discount = [];
+$grandtotalRoww = [];
+$gstArray = [5,5,5,28,18];
+$perRowgstAfterDiscount = [];
+
+for( $i ; $i< count($totalBeforeGst) ;$i++)
+{
+    $subtotalrow[$i] = ($totalRowprice[$i] - $totalBeforeGst[$i]);
+    $discount[$i] = round($subtotalrow[$i] * 53.37 /100,2);
+    $grandtotalRoww[$i] = round($subtotalrow[$i] - $discount[$i],2);
+    $perRowgstAfterDiscount[$i] =  round($grandtotalRoww[$i] * $gstArray[$i] / 100,2);
+}
+
+
+
+// var_dump($grandtotalRoww);
+// var_dump($totalBeforeGstRound);
+// var_dump($taxable);
+// var_dump($discount);
+// var_dump($grandTotal);
+// var_dump(round(array_sum($grandtotalRoww),2));
+// var_dump(round(array_sum($perRowgstAfterDiscount),2));
+echo(round(array_sum($grandtotalRoww),2) + floor(array_sum($perRowgstAfterDiscount) *100) / 100 );
+
+
+
+
+
+
