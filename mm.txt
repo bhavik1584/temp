@@ -30,6 +30,26 @@ echo(round(array_sum($grandtotalRoww),2) + floor(array_sum($perRowgstAfterDiscou
 
 
 
+$minValue = $sparecapacity < $casesTrays->application_amount && $sparecapacity < $total_overall_cap && $sparecapacity > 0
+    ? $sparecapacity
+    : ($casesTrays->application_amount < $total_overall_cap && $casesTrays->application_amount > 0
+        ? $casesTrays->application_amount
+        : ($total_overall_cap > 0
+            ? $total_overall_cap
+            : 0));
+
+
+
+    $all = Cases::count();
+    $odApplication = Cases::where('category','A')->where('created_at', '<=', $overdueDate)->count();
+    $odReview = Cases::where('category','R')->where('created_at', '<=', $overdueDate)->count();
+    $activeReview = Cases::where('category','R')->where('created_at', '>', $overdueDate)->count();
+    $activeApplication = Cases::where('category','A')->where('created_at', '>', $overdueDate)->count();
+
+    $data = ['all'=>$all,'odApplication'=>$odApplication,'activeApplication'=>$activeApplication,'odReview'=>$odReview,'activeReview'=>$activeReview];
+
+
+
 
 
 
